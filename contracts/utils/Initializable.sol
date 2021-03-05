@@ -22,29 +22,32 @@ abstract contract Initializable {
     /**
      * @dev Indicates that the contract has been initialized.
      */
-    bool private _initialized;
+    bool private initialized;
 
     /**
      * @dev Indicates that the contract is in the process of being initialized.
      */
-    bool private _initializing;
+    bool private initializing;
 
     /**
      * @dev Modifier to protect an initializer function from being invoked twice.
      */
     modifier initializer() {
-        require(_initializing || !_initialized, "Initializable: contract is already initialized");
+        require(initializing || !initialized, "Initializable: contract is already initialized");
 
-        bool isTopLevelCall = !_initializing;
+        bool isTopLevelCall = !initializing;
         if (isTopLevelCall) {
-            _initializing = true;
-            _initialized = true;
+            initializing = true;
+            initialized = true;
         }
 
         _;
 
         if (isTopLevelCall) {
-            _initializing = false;
+            initializing = false;
         }
     }
+
+    // Reserved storage space to allow for layout changes in the future.
+    uint256[50] private ______gap;
 }
